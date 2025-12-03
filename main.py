@@ -1,5 +1,6 @@
 import pandas as pd
 from matplotlib import pyplot as plt
+from wordcloud import WordCloud
 
 plt.style.use('seaborn-v0_8-deep')
 print(plt.style.available)
@@ -49,6 +50,10 @@ plt.close()
 java_rating = df['Java Rating']
 caffeine_per_week = df['Caffeine Drinks Per Week']
 
+plt.text(5, 5, 'Kevin and Ms. Walter')
+plt.text(0, 0, 'Bryce')
+plt.text(8, 0, 'Finny')
+plt.text(9, 7, 'Natalie')
 plt.scatter(java_rating, caffeine_per_week)
 plt.xlabel('Java Rating')
 plt.ylabel('Caffeine Drinks Per Week')
@@ -124,4 +129,19 @@ plt.ylabel('Favorite Show')
 plt.savefig('current_obsession_to_favorite_show.png')
 plt.close()
 
-# plot 11: 
+# plot 11: Pie Chart of Countries Visited
+countries_visited = df['Countries Visited']
+
+plt.pie(countries_visited, labels=countries_visited.index, autopct='%1.1f%%', startangle=180)
+plt.title('Distribution of Visited Countries')
+plt.savefig('countries_visited.png', bbox_inches='tight', dpi=200)
+plt.close()
+
+# plot 12: WordCloud
+text = " ".join(review for review in df['Spirit Animal'].astype(str))
+wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.savefig('spirit_animal_wordcloud.png')
+plt.close()
